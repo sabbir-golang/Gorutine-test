@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kafka Dashboard</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #111;
+            color: white;
+            text-align: center;
+            padding-top: 50px;
+        }
+        .box {
+            display: inline-block;
+            margin: 20px;
+            padding: 20px;
+            background: #222;
+            border-radius: 10px;
+            width: 200px;
+        }
+        .num {
+            font-size: 40px;
+            color: #00ff99;
+        }
+    </style>
+</head>
+<body>
+
+<h1>🚀 Kafka Real-Time Dashboard</h1>
+
+<div class="box">
+    <h3>Inserted</h3>
+    <div class="num" id="inserted">0</div>
+</div>
+
+<div class="box">
+    <h3>Duplicate</h3>
+    <div class="num" id="duplicate">0</div>
+</div>
+
+<div class="box">
+    <h3>Kafka Sent</h3>
+    <div class="num" id="kafka">0</div>
+</div>
+
+<script>
+async function loadStats() {
+    const res = await fetch("/stats")
+    const data = await res.json()
+
+    document.getElementById("inserted").innerText = data.inserted
+    document.getElementById("duplicate").innerText = data.duplicate
+    document.getElementById("kafka").innerText = data.kafka_sent
+}
+
+setInterval(loadStats, 1000)
+loadStats()
+</script>
+
+</body>
+</html>
